@@ -86,7 +86,7 @@ Queue.DeQueueLeft = function ( self )
 end
 
 -- Iterator for the Queue data sturcture
-Queue.Iterator = function ( self, modify )
+Queue.Iterator = function ( self )
     local i = self.first-1;
     local count = 0;
     return function()

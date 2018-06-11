@@ -26,6 +26,11 @@ Vector3d.Copy = function ( self, t )
 	return Vector:Create( { x = self.x, y = self.y, z = self.z } );
 end
 
+-- Returns elements of vector
+Vector3d.Unpack = function ( self )
+	return self.x, self.y, self.z;
+end
+
 -- Addition meta data
 Vector3d.__add = function ( self, a, b ) 
 	assert(isvector(a) and isvector(b), "Addition - One of the arguments was not a Vector3d!");
@@ -87,6 +92,11 @@ Vector3d.__ge = function ( self, a, b )
 	return a:Length() >= b:Length();
 end
 
+-- Returns a negative vector
+Vector3d.__unm = function ( self, a )
+	return Vector3d:Create(-a.x, -a.y, -a.z);
+end
+
 -- Returns the |v|, length, of the vector
 Vector3d.Length = function ( self )
 	return sqrt( self.x*self.x + self.y*self.y + self.z+self.z );
@@ -125,6 +135,16 @@ end
 -- To string representation
 Vector3d.ToString = function ( self )
 	return "(" .. self.x .. ", " .. self.y .. ", " .. self.z .. ")";
+end
+
+-- Returns a rounded vector
+Vector3d.Rounded = function ( self )
+	local x, y, z = math.floor(self.x), math.floor(self.y), math.floor(self.z);
+	local xm, ym, zm = 10^(#tostring(x)-2), 10^(#tostring(y)-2), 10^(#tostring(z)-2);
+	x = math.ceil(x / xm)*xm;
+	y = math.ceil(y / ym)*ym;
+	z = math.ceil(z / zm)*zm;
+	return Vector3d:Create(x, y, z);
 end
 
 return Vector3d; 

@@ -50,7 +50,7 @@ Grid.SetCell = function ( self, x, y, value )
     self[x][y] = value;
 end
 
-
+-- Iterator for the grid 
 Grid.Iterate = function ( self )
     local x, row = next(self);
     if x == nil then return function() end end
@@ -212,7 +212,40 @@ end
 
 -- To String Grid
 Grid.ToString = function ( self )
-
+    local function newStringStack ()
+        return { "" };  -- starts with an empty string
+    end
+    
+    function addString ( stack, s )
+        table.insert(stack, s)    -- push 's' into the the stack
+        for i=#stack-1, 1, -1 do
+            if string.len(stack[i]) > string.len(stack[i+1]) then
+                break
+            end
+            stack[i] = stack[i] .. table.remove(stack)
+        end
+    end
+    
+    local str = newStringStack();
+    for key,row in pairs(self) do
+        addString( str, "["..key.."]".."{ " );
+        for k,v in pairs(row) do
+            addString( str, v );
+            if k ~= #row then 
+                addString( str, ", " );
+            end
+        end
+        addString( str, " }\n" );
+    end
+    return table.concat(str, "");
 end
+
+local g = Grid:Create();
+g:SetCell(1,1,10);
+g:SetCell(1,2,13);
+g:SetCell(2,1,104);
+g:SetCell(3,1,110);
+
+print(g:ToString())
 
 return Grid;
