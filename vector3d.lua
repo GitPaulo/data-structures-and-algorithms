@@ -105,3 +105,26 @@ end
 Vector3d.Cross = function ( self, a, b )
 	return Vector3d:Create( { (a.y*b.z - a.z*b.y), (a.z*b.x - a.x*b.z), (a.x*b.y - a.y*b.x) } );
 end
+
+-- Dot between two vectors
+Vector3d.Dot = function ( self, a, b )
+	return Vector3d:Create( { (a.x * b.x) + (a.y * b.y) + (a.z * b.z) } );
+end
+
+-- Polar
+Vector3d.ToPolar = function ( self )
+	return Vector3d:Create( atan2(self.x, self.y, self.z), self:Length() );
+end
+
+-- Normalise
+Vector3d.Normalise = function ( self )
+	local l = self:Length();
+	return Vector3d:Create(self.x / l, self.y / l, self.z / l);
+end
+
+-- To string representation
+Vector3d.ToString = function ( self )
+	return "(" .. self.x .. ", " .. self.y .. ", " .. self.z .. ")";
+end
+
+return Vector3d; 

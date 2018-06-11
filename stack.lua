@@ -13,6 +13,11 @@ Stack.Create = function ( self, arr )
 	});
 end
 
+-- Size of Stack
+Stack.Size = function ( self )
+    return #self;
+end
+
 -- Copy to new Stack Object
 Stack.Copy = function ( self )
 	local new_stack = { };
@@ -58,16 +63,30 @@ Stack.Peek = function ( self )
 end
 
 -- Stack iterator. Pass modify as true to remove value on pass through
-Stack.Iterator = function ( modify )
+Stack.Iterator = function ( self, modify )
     local i = #self;
     local count = 0;
     return function()
         if i > 0 then 
             i = i - 1;
             count = count + 1;
-            return count, not modify and self:Pop() or self[i+1];
+            return count, modify and self:Pop() or self[i+1];
         end
     end
+end
+
+-- To String Stack
+Stack.ToString = function ( self )
+	local str = "{";
+	for k,v in self:Iterator() do
+		str = str .. v;
+        print(k, self:Size())
+		if k ~= self:Size() then
+			str = str .. ", ";
+		end
+	end
+   
+	return str.."}";
 end
 
 return Stack;

@@ -2,8 +2,8 @@
     Grid - Grid(x,y)
 ]]
 
-local Grid = {}
-
+local Grid = { };
+ 
 -- Creates and returns a new grid
 Grid.Create = function ( self )
     local grid = { };
@@ -209,5 +209,10 @@ Grid.__call = function( self, x, y, v )
         self:set(x,y,v);
     end
 end 
+
+-- To String Grid
+Grid.ToString = function ( self )
+
+end
 
 return Grid;

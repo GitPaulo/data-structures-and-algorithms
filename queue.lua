@@ -98,6 +98,20 @@ Queue.Iterator = function ( self, modify )
     end
 end
 
+-- To string Queue
+Queue.ToString = function ( self )
+	local str = "{";
+	for k,v in self:Iterator() do
+		str = str .. v;
+        print(k, self:Size())
+		if k ~= self:Size() then
+			str = str .. ", ";
+		end
+	end
+   
+	return str.."}";
+end
+
 local q = Queue:Create();
 print(q.last)
 q:EnQueueRight(1);
