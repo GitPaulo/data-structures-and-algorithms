@@ -1,9 +1,9 @@
 --[[
-    Grid - Grid(x,y)
+Grid - Grid(x,y)
 ]]
 
 local Grid = { };
- 
+
 -- Creates and returns a new grid
 Grid.Create = function ( self )
     local grid = { };
@@ -31,7 +31,7 @@ Grid.Size = function ( self )
     local count = 0;
     for _, cell in pairs(self) do
         for _, _ in pairs(cell) do
-            count = count + 1;
+            count = count + 1; 
         end
     end
     return count;
@@ -102,6 +102,7 @@ Grid.IterateLine =  function ( self, mode, startX, startY, endX, endY, includeNi
     local i = 1+dx+dy;
     local rx,ry,rv ;
     local checkX = false;
+    
     return function()
         while i>0 do 
             rx,ry,rv = x,y,self(x,y);
@@ -142,7 +143,7 @@ Grid.IterateCircle = function ( self, mode, x0, y0, radius, includeNil )
     local x = 0;
     local y = radius;
     local points = {};
-    
+
     local function mark(y,x1,x2)
         if not points[y] then points[y] = {}; end
         if mode == "line" then
@@ -154,10 +155,11 @@ Grid.IterateCircle = function ( self, mode, x0, y0, radius, includeNil )
             end
         end
     end
-    
+
     mark(y0 + radius, x0, x0);
     mark(y0 - radius, x0, x0);
     mark(y0, x0 - radius, x0 + radius);
+
     while x < y do
         if f >= 0 then
             y = y - 1;
@@ -172,7 +174,7 @@ Grid.IterateCircle = function ( self, mode, x0, y0, radius, includeNil )
         mark(y0 + x, x0 - y, x0 + y);
         mark(y0 - x, x0 - y, x0 + y);
     end
-    
+
     local row;
     y, row = next(points);
     x = nil;
@@ -215,7 +217,7 @@ Grid.ToString = function ( self )
     local function newStringStack ()
         return { "" };  -- starts with an empty string
     end
-    
+
     function addString ( stack, s )
         table.insert(stack, s)    -- push 's' into the the stack
         for i=#stack-1, 1, -1 do
@@ -225,7 +227,7 @@ Grid.ToString = function ( self )
             stack[i] = stack[i] .. table.remove(stack)
         end
     end
-    
+
     local str = newStringStack();
     for key,row in pairs(self) do
         addString( str, "["..key.."]".."{ " );

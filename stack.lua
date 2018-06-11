@@ -1,6 +1,6 @@
 --[[
-		Stack
-		First In Last Out Structure.
+Stack
+First In Last Out Structure.
 ]]
 
 local Stack = { };
@@ -15,7 +15,7 @@ end
 
 -- Size of Stack
 Stack.Size = function ( self )
-    return #self;
+	return #self;
 end
 
 -- Copy to new Stack Object
@@ -30,8 +30,8 @@ end
 -- Clears all values of the Stack.
 Stack.Clear = function ( self )
 	for k in pairs(self) do
-        self[k] = nil;
-    end
+		self[k] = nil;
+	end
 end
 
 Stack.IsEmpty = function ( self )
@@ -50,10 +50,10 @@ Stack.Pop = function ( self )
 	if self:IsEmpty() then 
 		error("Stack is empty!"); 
 	end
-	
+
 	local poped = self[#self];
 	self[#self] = nil;
-	
+
 	return poped;
 end
 
@@ -64,15 +64,15 @@ end
 
 -- Stack iterator. Pass modify as true to remove value on pass through
 Stack.Iterator = function ( self, modify )
-    local i = #self;
-    local count = 0;
-    return function()
-        if i > 0 then 
-            i = i - 1;
-            count = count + 1;
-            return count, modify and self:Pop() or self[i+1];
-        end
-    end
+	local i = #self;
+	local count = 0;
+	return function()
+		if i > 0 then 
+			i = i - 1;
+			count = count + 1;
+			return count, modify and self:Pop() or self[i+1];
+		end
+	end
 end
 
 -- To String Stack
@@ -80,12 +80,12 @@ Stack.ToString = function ( self )
 	local str = "{";
 	for k,v in self:Iterator() do
 		str = str .. v;
-        print(k, self:Size())
+		print(k, self:Size())
 		if k ~= self:Size() then
 			str = str .. ", ";
 		end
 	end
-   
+
 	return str.."}";
 end
 

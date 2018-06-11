@@ -1,30 +1,41 @@
 --[[
-	Graph - Graph( v, e )
+Graph - Graph( v, e )
 ]]
+
+local Edge = { };
+
+Edge.Create = function ( self, vertex_from, vertex_to, weight )
+	local edge = { };
+	edge.vertex_from = vertex_from;
+	edge.vertex_to   = vertex_to;
+	edge.weight		 = weight;
+
+	return setmetatable(edge, {
+		__index = Edge,
+	});
+end
+
+Edge.VertexFrom = function ( self )
+	return self.vertex_from;
+end
+
+Edge.VertexTo = function ( self )
+	return self.vertex_to;
+end
+
+Edge.GetWeight = function ( self )
+	return self.weight;
+end
 
 local Graph = { };
 
-Graph.Create = function ( self, vertex_from, vertex_to, weight )
-    local graph = { };
-    if weight == nil then
-        weight = 0;
-    end
+Graph.Create = function ( self, edges )
+	local graph = { };
+	graph.edges = edges or { };
 
-    s.vertex_from = vertex;
-    s.vertex_to   = vertex_to;
-    s.weight 	  = weight;
-
-    return setmetatable(graph, {
-    	__index = Graph,
+	return setmetatable(graph, {
+		__index = Graph,
 	});   
-end
-
-Graph.VertexFrom = function ( self )
-    return self.vertex_from;
-end
-
-Graph.VertexTo = function ( self )
-    return self.vertex_to;
 end
 
 Graph.VertexCount = function ( self )
@@ -32,11 +43,11 @@ Graph.VertexCount = function ( self )
 end
 
 Graph.EdgeCount = function ( self )
-
+	return #self.edge;
 end
 
 Graph.GetVertices = function ( self )
-
+	return self.edges;
 end
 
 Graph.GetEdges = function ( self )
