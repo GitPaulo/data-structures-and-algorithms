@@ -25,9 +25,9 @@ end
 		- How far the array is from being sorted. If array is already sorted then inversion count is 0. If array is sorted in reverse order that inversion count is the maximum.
 
 	Time Complexity:
-		- O(n*n)
+		- O(nlogn), same as merge sort
 	Space Complexity:
-		- O(1)
+		- same as merge sort
 ]]
 
 function merge( arr, temp, low, mid, high )
