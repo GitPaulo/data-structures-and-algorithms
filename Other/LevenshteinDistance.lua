@@ -20,20 +20,20 @@ function LevenshteinDistance(s, t)
 	-- source prefixes can be transformed into empty string by
 	-- dropping all characters
 	for i=2, #s-1, 1 do
-    	d[i][1] = i;
+		d[i][1] = i;
 	end
 	
 	-- target prefixes can be reached from empty source prefix
 	-- by inserting every character
 	for j=2, #t-1, 1 do
-    	d[1][j] = j;
-    end
+		d[1][j] = j;
+	end
  
 	local substitutionCost = 0;
 	for j=2, #t-1, 1 do
     	for i=2, #s-1, 1 do
         	if s[i] == t[j] then
-            	substitutionCost = 0;
+        		substitutionCost = 0;
         	else
             	substitutionCost = 1;
         		d[i][j] = minimum( d[i-1][j] + 1,                     -- deletion
